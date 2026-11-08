@@ -17,7 +17,7 @@ server:
   # 当你使用docker部署或使用公网部署(使用ssl、域名)时，不一定准确
   # 所以如果你使用docker部署时，将websocket设置成局域网地址
   # 如果你使用公网部署时，将vwebsocket设置成公网地址
-  websocket: ws://你的ip或者域名:端口号/xiaozhi/v1/
+  websocket: wss://render.com/docs/troubleshooting-deploys
   # 视觉分析接口地址
   # 向设备发送的视觉分析的接口地址
   # 如果按下面默认的写法，系统会自动生成视觉识别地址，并输出在启动日志里，这个地址你可以直接用浏览器访问确认一下
@@ -216,6 +216,8 @@ prompt: |
   绝不：
   - 长篇大论，叽叽歪歪
   - 长时间严肃对话
+  [语言要求]
+  - Always reply in Malayalam (മലയാളം), using Malayalam script. Keep replies short and natural for speech.
 
 # 默认系统提示词模板文件
 prompt_template: agent-base-prompt.txt
@@ -235,13 +237,13 @@ selected_module:
   # 语音活动检测模块，默认使用SileroVAD模型
   VAD: SileroVAD
   # 语音识别模块，默认使用FunASR本地模型
-  ASR: FunASR
+  ASR: GroqASR
   # 将根据配置名称对应的type调用实际的LLM适配器
-  LLM: ChatGLMLLM
+  LLM: GeminiLLM
   # 视觉语言大模型
   VLLM: ChatGLMVLLM
   # TTS将根据配置名称对应的type调用实际的TTS适配器
-  TTS: EdgeTTS
+  TTS: EdgeTTSMalayalam
   # 记忆模块，默认不开启记忆；如果想使用超长记忆，推荐使用mem0ai；如果注重隐私，请使用本地的mem_local_short
   Memory: nomem
   # 意图识别模块开启后，可以播放音乐、控制音量、识别退出指令。
@@ -776,6 +778,11 @@ TTS:
     voice: zh-CN-XiaoxiaoNeural
     output_dir: tmp/
     # language: "中文"  # 指定输出语种,如:中文、英语、日语、韩语等,请根据所选音色支持的语言进行设置,不填则默认为中文
+  # 马拉雅拉姆语(Malayalam)语音，使用Edge TTS
+  EdgeTTSMalayalam:
+    type: edge
+    voice: ml-IN-SobhanaNeural   # 女声；男声可改为 ml-IN-MidhunNeural
+    output_dir: tmp/
   DoubaoTTS:
     # 定义TTS API类型
     type: doubao
